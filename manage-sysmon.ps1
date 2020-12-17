@@ -9,7 +9,7 @@
 
 # Ensure to change the $ADDomainName to your domain name on line 3;
 # Ensure to complete the path to the directory where you will keep Sysmon.exe including the preceding "\"; Sysmon64.exe; and the config sysmonconfig.xml on line 7;
-# Only change these variables and no other variables :)
+# Only change these variables and no other variables
 
 $ADDomainName = "example.nonexdom"
 $SysVolSysmonPath = "\\$ADDomainName\sysvol\$ADDomainName\sysmon" #Place both sysmon64.exe and sysmon.exe in this directory
@@ -119,7 +119,7 @@ if((Test-Path "$SysVolSysmonPE") -and (Test-Path "$SysVolSysmonConfig"))
             Add-Content $LogFileForScript "$ScriptRunTime ---- Current Sysmon Config is Up To Date"
         }
     }
-    # Sysmon is not installed, so install with config :)
+    # Sysmon is not installed, so install with config 
     else
     {
         # Copy sysmon locally, for install performance and incase network drops during install

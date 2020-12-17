@@ -1,3 +1,7 @@
+#Security Concerns
+#If you use a scheduled task (or some other means) to run this script as "NT Authority\Local System" (or another privileged account) and point it to a network share containing this script. Ensure that the share is writable only by highly trusted accounts (sysvol/netlogon are good candidates). This is because unless you sign this script there is no validation, so if someone can replace this script with an evil version.. they can do what they wish.
+#There are validations ensuring sysmon.exe and sysmon64.exe are the legitimate binaries before we execute them. So you can place these and the configuration somewhere less secure. However, even then it is possible to cause a DOS by overwriting a legitimate sysmon configuration with a poor configuration.  
+
 # Updated December 16 2020
 # Added a digital signature & other checks before executing sysmon.exe.
 # Made improvements to support most recent versions of sysmon
@@ -9,11 +13,11 @@
 
 $ADDomainName = "example.nonexdom"
 $SysVolSysmonPath = "\\$ADDomainName\sysvol\$ADDomainName\sysmon" #Place both sysmon64.exe and sysmon.exe in this directory
-$LocalSysmonPath = "$Env:SystemRoot\Temp\" #default is C:\windows\temp, you should probably leave this
+$LocalSysmonPath = "$Env:SystemRoot\Temp\" #default is C:\windows\temp, you should probably leave this as is
 $SysVolSysmonConfig = "$SysVolSysmonPath\config.xml" #change config.xml to the name of your sysmon config file
 #The path to sysmon.exe is dynamically generated based off if a x64 or x86 version of windows is in use. 
 $LocalSysmonConfig = "$LocalSysmonPath\sysmonconfig.xml"
-$LogFileForScript = "$LocalSysmonPath\sysmon-install-log.txt" #this is the 
+$LogFileForScript = "$LocalSysmonPath\sysmon-install-log.txt" #this is the log file, it contains the status of the script
 
 # Set time that script started
 $ScriptRunTime = Get-Date
